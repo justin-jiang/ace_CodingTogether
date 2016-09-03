@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ace - The High Performance Code Editor for the Web</title>
+    <style media="screen" type="text/css">
+    #editor {
+        position: absolute;
+        width: 500px;
+        height: 400px;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="position:relative;" id="editor">some text</div>
+    <button style="position:relative;width:50px;" onclick="btnClick()"></button>
+    <script src="build/src/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    var editor = ace.edit("editor");
+    function btnClick(){
+    	var range = editor.getSelectionRange();
+    	editor.addSelectionMarker(range);
+    }
+
+    </script>
+</body>
+
+</html>
