@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height: 100%">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Coding Together for the Web</title>    
+</head>
+
+<body style="width:100%; height: 100%">   
+    <div style="position:absolute;width: 100%; height: 100%" id="editor"></div>
+    <script src="../../libs/require.min.js"></script>
+    <script>
+    (function() {
+        require.config({
+            baseUrl: '.',
+            paths: {
+                src: '..',
+                underscore: '../../libs/underscore-min-1.8.3'
+            }
+        });
+
+        require(['TestThirdSubClass'], function(ThirdSubClass) {
+
+            
+            var childClass = new ThirdSubClass({
+                testProp:3
+            });
+
+        });
+
+    })();
+
+    function btnClick() {
+        // var range = editor.getSelectionRange();
+        // editor.addSelectionMarker(range);
+
+    }
+    </script>
+</body>
+
+</html>
