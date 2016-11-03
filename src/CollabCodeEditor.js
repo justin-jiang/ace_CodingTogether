@@ -1,5 +1,5 @@
-define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 'underscore', 'utils/L'],
-    function(CmdBuilder, Messager, WSClient, _, L) {
+define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 'src/WildDogClient', 'underscore', 'utils/L'],
+    function(CmdBuilder, Messager, WSClient, WDClient, _, L) {
         var protoProps = {
                 // ACE instance
                 _ace: null,
@@ -78,6 +78,25 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                     });
                 },
                 /**
+                initialize the WildDog Sync client
+                */
+                initializeWDClient: function(options) {
+                    var that = this,
+                        wdOptions;
+                    options = options || {};
+
+                    if (!options.collabOptions) {
+                        throw 'please specified the options.collabOptions';
+                    }
+
+                    if (!that._ace || !that._aceEditor) {
+                        throw 'please initialize ACE before initializing Websocket';
+                    }
+
+                    wdOptions = options.collabOptions;
+                    that._collabClient = new WDClient(wdOptions);
+                },
+                /**
                 initialize the Websocket client
                 */
                 initializeWSClient: function(options) {
@@ -93,7 +112,7 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                         throw 'please initialize ACE before initializing Websocket';
                     }
 
-                    wsOptions = options.wsOptions;
+                    wsOptions = options.collabOptions;
                     that._collabClient = new WSClient(wsOptions);
                 },
 
@@ -124,9 +143,10 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                 var that = this;
                 L.log('creating CollabCodeEditor...');
                 that.initializeACE(options);
-                that.initializeWSClient(options);
+                //that.initializeWSClient(options);
+                that.initializeWDClient(options);
                 that.initializeEventBinding();
-                that.initializeCollabContent(options.wsOptions.sharedKey);
+                that.initializeCollabContent(options.collabOptions.sharedKey);
             };
 
         // extend the prototype
