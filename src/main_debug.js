@@ -10,7 +10,7 @@ require.config({
         //backbone: 'libs/backbone-min-1.3.3',
         //jquery: 'libs/jquery-3.1.0.slim.min',
         signal:'libs/signals.min',
-        underscore: 'libs/underscore-min-1.8.3',
+        underscore: 'libs/underscore.min',
         utils: 'src/utils',
 
     },

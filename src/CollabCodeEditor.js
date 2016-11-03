@@ -10,7 +10,7 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                 // the ACE Div containder ID
                 _aceDivContainerId: 'editor',
 
-                _wsClient: null,
+                _collabClient: null,
 
                 _collabMessager: null,
 
@@ -73,7 +73,7 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                 initializeEventBinding: function() {
                     var that = this;
                     that._collabMessager = new Messager({
-                        wsClient: that._wsClient,
+                        collabClient: that._collabClient,
                         aceEditor: that._aceEditor
                     });
                 },
@@ -94,7 +94,7 @@ define(['src/CollabCmdBuilder', 'src/CollabCmdMessager', 'src/WebSocketClient', 
                     }
 
                     wsOptions = options.wsOptions;
-                    that._wsClient = new WSClient(wsOptions);
+                    that._collabClient = new WSClient(wsOptions);
                 },
 
                 /**

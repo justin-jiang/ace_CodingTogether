@@ -13,8 +13,8 @@ define(['src/ACEAction', 'src/CollabCmdExecutor', 'src/CollabCmdBuilder', 'under
                 _aceCurrentSession: null,
                 _aceCurrentSelection: null,
 
-                // WS client instance
-                _wsClient: null,
+                // collab client instance
+                _collabClient: null,
 
                 // collab modules
                 _cmdExecutor: null,
@@ -26,8 +26,8 @@ define(['src/ACEAction', 'src/CollabCmdExecutor', 'src/CollabCmdBuilder', 'under
                     var that = this;
                     options = options || {};
 
-                    if (!options.wsClient) {
-                        L.throw('please specified the options.wsClient');
+                    if (!options.collabClient) {
+                        L.throw('please specified the options.collabClient');
                     }
 
                     if (!options.aceEditor) {
@@ -36,12 +36,12 @@ define(['src/ACEAction', 'src/CollabCmdExecutor', 'src/CollabCmdBuilder', 'under
 
                     that._cmdExecutor = new CollabCmdExecutor(options);
 
-                    that._wsClient = options.wsClient;
+                    that._collabClient = options.collabClient;
                     that._aceEditor = options.aceEditor;
                     ////////////////////////////////////////////////
                     // bind WS Client Event
                     //                    
-                    that._wsClient.Event_OnMessage.add(that._event_WS_OnMessage, that);
+                    that._collabClient.Event_OnMessage.add(that._event_WS_OnMessage, that);
 
                     ////////////////////////////////////////////////
                     // bind ACE Event
@@ -68,10 +68,10 @@ define(['src/ACEAction', 'src/CollabCmdExecutor', 'src/CollabCmdBuilder', 'under
                         success = false,
                         message;
 
-                    if (cmdJSON && that._wsClient) {
+                    if (cmdJSON && that._collabClient) {
                         message = JSON.stringify(cmdJSON);
                         L.log('send message: ', message);
-                        that._wsClient.send(message);
+                        that._collabClient.send(message);
                         success = true;
                     }
                     return success;
